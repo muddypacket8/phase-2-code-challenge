@@ -13,7 +13,8 @@ function TransactionsTable() {
   useEffect(() => {
     fetch('https://my-json-server.typicode.com/muddypacket8/phase-2-code-challenge/transactions')
       .then((r) => r.json())
-      .then((transactions) => setTransactions(transactions));
+      .then((data) => setTransactions(data))
+      .catch((error) => console.log(error));
   }, []);
 
   const handleInputChange = (event) => {
@@ -26,13 +27,18 @@ function TransactionsTable() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch('https://my-json-server.typicode.com/muddypacket8/phase-2-code-challenge/transactions'), {
-      method: 'POST',
+    fetch("https://my-json-server.typicode.com/muddypacket8/phase-2-code-challenge/transactions", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(newTransaction)
     })
+      .then((r) => r.json())
+      .then((newTransaction) => {
+        setTransactions((prevState) => [...prevState, newTransaction]);
+      });
+    
       .then((r) => r.json())
       .then((newTransaction) => {
         setTransactions((prevState) => [...prevState, newTransaction]);
@@ -41,7 +47,8 @@ function TransactionsTable() {
           description: '',
           amount: ''
         });
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -79,14 +86,13 @@ function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          {transactions &&
-            transactions.map((transaction, index) => (
-              <tr key={index}>
-                <td>{transaction.date}</td>
-                <td>{transaction.description}</td>
-                <td>{transaction.amount}</td>
-              </tr>
-            ))}
+          {transactions.map((transaction, index) => (
+            <tr key={index}>
+              <td>{transaction.date}</td>
+              <td>{transaction.description}</td>
+              <td>{transaction.amount}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

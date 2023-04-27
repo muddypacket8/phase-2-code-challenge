@@ -27,4 +27,4 @@ Add authentication and user account functionality
 Persist new transactions to the backend
 Contributing
 This project is not currently open for contributions, but feel free to fork the repository and make changes as needed for your own use. If you find any bugs or have suggestions for improvements, please create an issue on the repository
-LICENSE
+
