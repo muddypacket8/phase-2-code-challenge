@@ -11,7 +11,7 @@ function TransactionsTable() {
   });
 
   useEffect(() => {
-    fetch('http://localhost:8001/transactions')
+    fetch('https://my-json-server.typicode.com/muddypacket8/phase-2-code-challenge/transactions')
       .then((r) => r.json())
       .then((transactions) => setTransactions(transactions));
   }, []);
@@ -26,7 +26,7 @@ function TransactionsTable() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch('http://localhost:8001/transactions', {
+    fetch('https://my-json-server.typicode.com/muddypacket8/phase-2-code-challenge/transactions'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
