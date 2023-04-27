@@ -11,10 +11,9 @@ function TransactionsTable() {
   });
 
   useEffect(() => {
-    fetch('https://my-json-server.typicode.com/muddypacket8/phase-2-code-challenge/transactions')
+    fetch('https://react-40re.onrender.com/transactions')
       .then((r) => r.json())
-      .then((data) => setTransactions(data))
-      .catch((error) => console.log(error));
+      .then((transactions) => setTransactions(transactions));
   }, []);
 
   const handleInputChange = (event) => {
@@ -27,28 +26,22 @@ function TransactionsTable() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    fetch("https://my-json-server.typicode.com/muddypacket8/phase-2-code-challenge/transactions", {
-      method: "POST",
+    fetch('https://react-40re.onrender.com/transactions', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(newTransaction)
     })
       .then((r) => r.json())
       .then((newTransaction) => {
         setTransactions((prevState) => [...prevState, newTransaction]);
-      });
-    
-      .then((r) => r.json())
-      .then((newTransaction) => {
-        setTransactions((prevState) => [...prevState, newTransaction]);
         setNewTransaction({
           date: '',
           description: '',
-          amount: ''
+          amount: '',
         });
-      })
-      .catch((error) => console.log(error));
+      });
   };
 
   return (
@@ -86,13 +79,14 @@ function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction, index) => (
-            <tr key={index}>
-              <td>{transaction.date}</td>
-              <td>{transaction.description}</td>
-              <td>{transaction.amount}</td>
-            </tr>
-          ))}
+          {transactions &&
+            transactions.map((transaction, index) => (
+              <tr key={index}>
+                <td>{transaction.date}</td>
+                <td>{transaction.description}</td>
+                <td>{transaction.amount}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </>
